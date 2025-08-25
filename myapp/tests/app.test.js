@@ -9,11 +9,11 @@ describe("GET /", () => {
 });
 
 describe("POST /carValue", () => {
-  // it.todo();
+  it.todo("get car value");
 });
 
 describe("POST /getRiskRating", () => {
-  // it.todo();
+  it.todo("get risk rating");
 });
 
 describe("POST /getQuote", () => {
