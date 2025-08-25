@@ -1,25 +1,31 @@
-const request = require('supertest');
-const app = require('../app')
+const request = require("supertest");
+const app = require("../app");
 
-describe('GET /', () => {
-  it('responds with 200', async () => {
-    const res = await request(app).get('/');
+describe("GET /", () => {
+  it("responds with 200", async () => {
+    const res = await request(app).get("/");
     expect(res.status).toBe(200);
   });
 });
 
-describe('POST /carValue', () => {
-  it.todo();
-})
-
-describe('POST /getRiskRating', () => {
-  it.todo();
-})
-
-describe('POST /getQuote', () => {
-  it.todo();
+describe("POST /carValue", () => {
+  // it.todo();
 });
 
-describe('POST /getDiscount', () => {
-  it.todo();
-})
+describe("POST /getRiskRating", () => {
+  // it.todo();
+});
+
+describe("POST /getQuote", () => {
+  it("returns correct quote", async () => {
+    const body = {car_value: 6614, risk_rating: 5};
+    const res = await request(app).post("/getQuote").send(body);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({monthly_premium: 27.6, yearly_premium: 330.7});
+  });
+});
+
+describe("POST /getDiscount", () => {
+  // it.todo();
+});
