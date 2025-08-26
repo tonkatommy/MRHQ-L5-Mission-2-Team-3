@@ -11,27 +11,21 @@ describe("GET /", () => {
 describe("POST /getValue", () => {
   // 1. Sunny day scenario
   it("returns correct value for Civic 2020", async () => {
-    const res = await request(app)
-      .post("/getValue")
-      .send({ model: "Civic", year: 2020 });
+    const res = await request(app).post("/getValue").send({ model: "Civic", year: 2020 });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ car_value: 6620 });
   });
 
   // 2. Numbers-only model
   it("returns correct value when model is numbers only", async () => {
-    const res = await request(app)
-      .post("/getValue")
-      .send({ model: "911", year: 2020 });
+    const res = await request(app).post("/getValue").send({ model: "911", year: 2020 });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ car_value: 2020 }); // letters ignored, only year remains
   });
 
   // 3. Negative year
   it("returns error when year is negative", async () => {
-    const res = await request(app)
-      .post("/getValue")
-      .send({ model: "Civic", year: -987 });
+    const res = await request(app).post("/getValue").send({ model: "Civic", year: -987 });
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty("error");
   });
@@ -47,17 +41,18 @@ describe("POST /getValue", () => {
 
   // 5. Boundary test with single letter
   it("handles single letter model Z correctly", async () => {
-    const res = await request(app)
-      .post("/getValue")
-      .send({ model: "Z", year: 2000 });
+    const res = await request(app).post("/getValue").send({ model: "Z", year: 2000 });
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ car_value: 4600 }); // (26 * 100) + 2000
   });
 });
 
-describe("POST /getRiskRating", () => {
-  it.todo("get risk rating");
-});
+/**
+ * Moved to tests/getRiskRating.test.js
+ */
+// describe("POST /getRiskRating", () => {
+//   it.todo("get risk rating");
+// });
 
 describe("POST /getQuote", () => {
   it("returns correct quote", async () => {
