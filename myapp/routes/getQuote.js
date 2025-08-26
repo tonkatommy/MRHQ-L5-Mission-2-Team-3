@@ -1,24 +1,29 @@
-var express = require("express");
-var router = express.Router();
-
-const calculatePremium = (car_value, risk_rating) => {
-  const yearlyPremium = (car_value * risk_rating) / 100;
-  const monthlyPremium = yearlyPremium / 12;
-
-  return {
-    yearly_premium: Number(yearlyPremium.toFixed(1)),
-    monthly_premium: Number(monthlyPremium.toFixed(1)),
-  };
-};
+const express = require("express");
+const router = express.Router();
 
 router.post("/", function (req, res, next) {
-  const {car_value, risk_rating} = req.body;
-  const {yearly_premium, monthly_premium} = calculatePremium(
-    car_value,
-    risk_rating
-  );
+  const carValue = Number(req.body.car_value);
+  const riskRating = Number(req.body.risk_rating);
 
-  return res.status(200).json({monthly_premium, yearly_premium});
+  if (isNaN(carValue) || isNaN(riskRating)) {
+    return res.status(400).json({error: "value is not a number"});
+  }
+
+  if (carValue <= 0 || riskRating <= 0) {
+    return res.status(400).json({error: "values must be greater than 0"});
+  }
+
+  return res.status(200).json(calculatePremium(carValue, riskRating));
 });
+
+const calculatePremium = (carValue, riskRating) => {
+  const yearly = (carValue * riskRating) / 100;
+  const monthly = yearly / 12;
+
+  return {
+    yearly_premium: +yearly.toFixed(2),
+    monthly_premium: +monthly.toFixed(2),
+  };
+};
 
 module.exports = router;
