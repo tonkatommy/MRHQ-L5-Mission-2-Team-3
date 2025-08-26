@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-router.post("/", function (req, res, next) {
+router.post("/api/risk-rating/", function (req, res, next) {
   //todo
 });
 
