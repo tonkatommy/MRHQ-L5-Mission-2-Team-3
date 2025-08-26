@@ -8,6 +8,7 @@ var indexRouter = require("./routes/index");
 var getDiscountRouter = require("./routes/getDiscount");
 var getQuoteRouter = require("./routes/getQuote");
 const getRiskRatingRouter = require("./routes/getRiskRating");
+var carValueRouter = require("./routes/getValue");
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use("/", indexRouter);
 app.use("/getDiscount", getDiscountRouter);
 app.use("/getQuote", getQuoteRouter);
 app.use("/api/risk-rating", getRiskRatingRouter);
+app.use("/getValue", carValueRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
