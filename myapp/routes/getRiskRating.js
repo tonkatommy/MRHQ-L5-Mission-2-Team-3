@@ -52,7 +52,8 @@ router.post("/", (req, res, next) => {
       // \b creates word boundaries to ensure we match complete words only
       // (ed|es|ing)? creates an optional group for our three target endings
       // g flag finds all matches, i flag ignores case
-      // return new RegExp(`\\b${stem}(ed|es|ing)?\\b`, "gi");
+      // We intentionally match only the exact base word (e.g., "crash"), not its variations (e.g., "crashed", "crashes", "crashing").
+      // This is to avoid false positives from unrelated words and to keep the risk keyword analysis strict.
       return new RegExp(`\\b${stem}\\b`, "gi");
     };
 
