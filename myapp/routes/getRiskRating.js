@@ -29,8 +29,6 @@ router.post("/", (req, res, next) => {
   try {
     // Extract the claim history text from the request body
     const { claimHistory } = req.body;
-    // Optional : comment this out for production
-    // console.log("Claim History:", claimHistory);
     // Validate the input
     if (typeof claimHistory !== "string") {
       // Optional console log the error
