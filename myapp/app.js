@@ -7,6 +7,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var getDiscountRouter = require("./routes/getDiscount");
 var getQuoteRouter = require("./routes/getQuote");
+const getRiskRatingRouter = require("./routes/getRiskRating");
 var carValueRouter = require("./routes/getValue");
 
 var app = express();
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/getDiscount", getDiscountRouter);
 app.use("/getQuote", getQuoteRouter);
+app.use("/api/getRiskRating", getRiskRatingRouter);
 app.use("/getValue", carValueRouter);
 
 // catch 404 and forward to error handler
