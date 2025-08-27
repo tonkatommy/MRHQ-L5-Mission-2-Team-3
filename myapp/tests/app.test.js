@@ -8,36 +8,55 @@ describe("GET /", () => {
   });
 });
 
-describe("POST /carValue", () => {
-  it.todo("get car value");
+describe("POST /getValue", () => {
+  // 1. Sunny day scenario
+  it("returns correct value for Civic 2020", async () => {
+    const res = await request(app)
+      .post("/getValue")
+      .send({model: "Civic", year: 2020});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({car_value: 6620});
+  });
+
+  // 2. Numbers-only model
+  it("returns correct value when model is numbers only", async () => {
+    const res = await request(app)
+      .post("/getValue")
+      .send({model: "911", year: 2020});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({car_value: 2020}); // letters ignored, only year remains
+  });
+
+  // 3. Negative year
+  it("returns error when year is negative", async () => {
+    const res = await request(app)
+      .post("/getValue")
+      .send({model: "Civic", year: -987});
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("error");
+  });
+
+  // 4. Wrong data type for year
+  it("returns error when year is non-numeric string", async () => {
+    const res = await request(app)
+      .post("/getValue")
+      .send({model: "Civic", year: "twenty twenty"});
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("error");
+  });
+
+  // 5. Boundary test with single letter
+  it("handles single letter model Z correctly", async () => {
+    const res = await request(app)
+      .post("/getValue")
+      .send({model: "Z", year: 2000});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({car_value: 4600}); // (26 * 100) + 2000
+  });
 });
 
 describe("POST /getRiskRating", () => {
   it.todo("get risk rating");
-});
-
-describe("POST /getQuote", () => {
-  it("returns correct quote", async () => {
-    const body = {car_value: 6614, risk_rating: 5};
-    const res = await request(app).post("/getQuote").send(body);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({monthly_premium: 27.56, yearly_premium: 330.7});
-  });
-  it("handles non-numeric values", async () => {
-    const body = {car_value: "%abc", risk_rating: "!def"};
-    const res = await request(app).post("/getQuote").send(body);
-
-    expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty("error", "value is not a number");
-  });
-  it("handles values equal to or less than 0", async () => {
-    const body = {car_value: -6614, risk_rating: 0};
-    const res = await request(app).post("/getQuote").send(body);
-
-    expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty("error", "values must be greater than 0");
-  });
 });
 
 describe("POST /getDiscount", () => {

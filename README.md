@@ -156,20 +156,22 @@ This is an example of how to list things you need to use the software and how to
   npm install npm@latest -g
   ```
 
-### Installation
+### Installation & Run
 
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
    git clone https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3.git
    ```
-3. Install NPM packages
+3. Change directory, install NPM packages, and run
    ```sh
+   cd ./MRHQ-L5-Mission-2-Team-3
    npm install
+   npm run dev
    ```
-4. Enter your API in `config.js`
+4. Enter your API in `.env`
    ```js
-   const API_KEY = "ENTER YOUR API";
+   API_KEY = "ENTER YOUR API";
    ```
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
