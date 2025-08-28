@@ -16,12 +16,32 @@ describe("POST /getQuote", () => {
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty("error", "value is not a number");
   });
-  it("handles values equal to or less than 0", async () => {
-    const body = {car_value: -6614, risk_rating: 0};
+  it("handles risk ratings not between 1 and 5", async () => {
+    const body = {car_value: 6614, risk_rating: 7};
+    const res = await request(app).post("/getQuote").send(body);
+
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty(
+      "error",
+      "risk rating must be between 1 and 5"
+    );
+  });
+  it("handles negative car value", async () => {
+    const body = {car_value: -6614, risk_rating: 3};
     const res = await request(app).post("/getQuote").send(body);
 
     expect(res.status).toBe(400);
     expect(res.body).toHaveProperty("error", "values must be greater than 0");
   });
-  it.todo("handles risk rating over 5");
+  //missing params tests grouped in test.each block
+  test.each([
+    [{}, "carValue, riskRating not provided"],
+    [{car_value: 6614}, "riskRating not provided"],
+    [{risk_rating: 3}, "carValue not provided"],
+  ])("handles missing parameters", async (body, expectedError) => {
+    const res = await request(app).post("/getQuote").send(body);
+
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("error", expectedError);
+  });
 });
