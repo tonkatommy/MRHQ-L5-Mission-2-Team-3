@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discount Calculator API Tester</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand h2 {
+        color: white;
+        margin: 0;
+        font-size: 1.5em;
+        font-weight: 700;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 25px;
+      }
+
+      .nav-item {
+        margin: 0;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.1em;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+
+      .nav-link.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 80px);
+        padding: 20px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2.2em;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1em;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 1.1em;
+      }
+
+      input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #9c27b0;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.1);
+      }
+
+      .input-row {
+        display: flex;
+        gap: 15px;
+      }
+
+      .input-row .form-group {
+        flex: 1;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+
+      button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+      }
+
+      .btn-secondary {
+        background: #f8f9fa;
+        color: #333;
+        border: 2px solid #e1e5e9;
+      }
+
+      .btn-secondary:hover {
+        background: #e9ecef;
+        transform: translateY(-1px);
+      }
+
+      .result-container {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #9c27b0;
+        background: #f8f9fa;
+        display: none;
+      }
+
+      .result-container.show {
+        display: block;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .result-container.error {
+        border-left-color: #dc3545;
+        background: #f8d7da;
+      }
+
+      .result-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+      }
+
+      .discount-display {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .discount-value {
+        font-size: 3em;
+        font-weight: 700;
+        color: #9c27b0;
+        margin: 15px 0;
+      }
+
+      .discount-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1.2em;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      .breakdown-container {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .breakdown-card {
+        background: white;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .breakdown-title {
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .breakdown-value {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: #9c27b0;
+      }
+
+      .breakdown-desc {
+        font-size: 0.8em;
+        color: #888;
+        margin-top: 5px;
+      }
+
+      .calculation-breakdown {
+        margin-top: 15px;
+        padding: 15px;
+        background: rgba(156, 39, 176, 0.1);
+        border-radius: 8px;
+        font-size: 0.9em;
+      }
+
+      .loading {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .discount-rules {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f3e5f5;
+        border-radius: 8px;
+        font-size: 0.9em;
+      }
+
+      .discount-rules h4 {
+        margin-bottom: 10px;
+        color: #7b1fa2;
+      }
+
+      .rule-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(123, 31, 162, 0.1);
+      }
+
+      .rule-item:last-child {
+        border-bottom: none;
+      }
+
+      .examples {
+        margin-top: 20px;
+        padding: 15px;
+        background: #e8eaf6;
+        border-radius: 8px;
+        font-size: 0.9em;
+      }
+
+      .examples h4 {
+        margin-bottom: 10px;
+        color: #3f51b5;
+      }
+
+      .examples ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .examples li {
+        margin-bottom: 8px;
+        padding: 8px 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(63, 81, 181, 0.1);
+      }
+
+      .examples li:last-child {
+        border-bottom: none;
+      }
+
+      .example-input {
+        font-weight: 600;
+      }
+
+      .example-output {
+        color: #3f51b5;
+        font-weight: 600;
+      }
+
+      .error-message {
+        color: #dc3545;
+        font-weight: 600;
+      }
+
+      .quick-fill-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .quick-fill-btn {
+        background: #e1bee7;
+        color: #7b1fa2;
+        border: 1px solid #ce93d8;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: all 0.2s ease;
+      }
+
+      .quick-fill-btn:hover {
+        background: #ce93d8;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <h2>🚗 Insurance API Suite</h2>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Risk Rating</a>
+          </li>
+          <li class="nav-item">
+            <a href="getValue.html" class="nav-link">Car Value</a>
+          </li>
+          <li class="nav-item">
+            <a href="getQuote.html" class="nav-link">Premium Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="getDiscount.html" class="nav-link active">Discount Calculator</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="container">
+        <h1>🎯 Discount Calculator</h1>
+        <p class="subtitle">Calculate insurance discounts based on age and driving experience</p>
+
+        <form id="discountForm">
+          <div class="input-row">
+            <div class="form-group">
+              <label for="age">Age:</label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                placeholder="e.g., 28"
+                min="16"
+                max="100"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="experience">Driving Experience (years):</label>
+              <input
+                type="number"
+                id="experience"
+                name="experience"
+                placeholder="e.g., 5"
+                min="0"
+                max="60"
+                step="0.5"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="btn-primary" id="submitBtn">Calculate Discount</button>
+            <button type="button" class="btn-secondary" id="clearBtn">Clear</button>
+          </div>
+        </form>
+
+        <div class="quick-fill-buttons">
+          <button class="quick-fill-btn" onclick="quickFill(22, 2)">Young Driver</button>
+          <button class="quick-fill-btn" onclick="quickFill(30, 8)">Experienced Driver</button>
+          <button class="quick-fill-btn" onclick="quickFill(45, 15)">Senior Experienced</button>
+          <button class="quick-fill-btn" onclick="quickFill(18, 0.5)">New Driver</button>
+        </div>
+
+        <div id="resultContainer" class="result-container">
+          <div class="result-title">Discount Calculation Result:</div>
+          <div id="resultContent"></div>
+        </div>
+
+        <div class="discount-rules">
+          <h4>💡 Discount Rules:</h4>
+          <div class="rule-item">
+            <span>Age 25-39</span>
+            <span><strong>+5%</strong></span>
+          </div>
+          <div class="rule-item">
+            <span>Age 40+</span>
+            <span><strong>+10%</strong> (includes +5% from age 25)</span>
+          </div>
+          <div class="rule-item">
+            <span>5-9 years experience</span>
+            <span><strong>+5%</strong></span>
+          </div>
+          <div class="rule-item">
+            <span>10+ years experience</span>
+            <span><strong>+10%</strong> (includes +5% from 5 years)</span>
+          </div>
+          <div class="rule-item">
+            <span>Maximum Total Discount</span>
+            <span><strong>20%</strong></span>
+          </div>
+        </div>
+
+        <div class="examples">
+          <h4>📝 Example Calculations:</h4>
+          <ul>
+            <li>
+              <span class="example-input">Age 22, 2 years exp</span>
+              <span class="example-output">0% discount</span>
+            </li>
+            <li>
+              <span class="example-input">Age 30, 8 years exp</span>
+              <span class="example-output">10% discount</span>
+            </li>
+            <li>
+              <span class="example-input">Age 45, 15 years exp</span>
+              <span class="example-output">20% discount</span>
+            </li>
+            <li>
+              <span class="example-input">Age 26, 3 years exp</span>
+              <span class="example-output">5% discount</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("discountForm");
+      const ageInput = document.getElementById("age");
+      const experienceInput = document.getElementById("experience");
+      const submitBtn = document.getElementById("submitBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const resultContainer = document.getElementById("resultContainer");
+      const resultContent = document.getElementById("resultContent");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const age = parseInt(ageInput.value);
+        const experience = parseFloat(experienceInput.value);
+
+        if (!age || age < 16 || age > 100) {
+          showError("Please enter a valid age (16-100).");
+          return;
+        }
+
+        if (experience === null || experience === undefined || experience < 0 || experience > 60) {
+          showError("Please enter valid driving experience (0-60 years).");
+          return;
+        }
+
+        await calculateDiscount(age, experience);
+      });
+
+      clearBtn.addEventListener("click", () => {
+        ageInput.value = "";
+        experienceInput.value = "";
+        hideResult();
+        ageInput.focus();
+      });
+
+      async function calculateDiscount(age, experience) {
+        setLoading(true);
+
+        try {
+          const response = await fetch("/api/calculateDiscount", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ age, experience }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.discount !== undefined) {
+            showSuccess(data.discount, age, experience);
+          } else {
+            showError(data.error || "An error occurred while calculating the discount.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showError("Failed to connect to the API. Please check if the server is running.");
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          submitBtn.innerHTML = '<span class="spinner"></span>Calculating...';
+          submitBtn.disabled = true;
+          form.classList.add("loading");
+        } else {
+          submitBtn.innerHTML = "Calculate Discount";
+          submitBtn.disabled = false;
+          form.classList.remove("loading");
+        }
+      }
+
+      function showSuccess(discount, age, experience) {
+        const breakdown = calculateBreakdown(age, experience);
+
+        resultContent.innerHTML = `
+                <div class="discount-display">
+                    <div class="discount-value">${discount}%</div>
+                    <div class="discount-badge">Total Discount: ${discount}%</div>
+                </div>
+                <div class="breakdown-container">
+                    <div class="breakdown-card">
+                        <div class="breakdown-title">Age Discount</div>
+                        <div class="breakdown-value">+${breakdown.ageDiscount}%</div>
+                        <div class="breakdown-desc">${getAgeDescription(age)}</div>
+                    </div>
+                    <div class="breakdown-card">
+                        <div class="breakdown-title">Experience Discount</div>
+                        <div class="breakdown-value">+${breakdown.experienceDiscount}%</div>
+                        <div class="breakdown-desc">${getExperienceDescription(experience)}</div>
+                    </div>
+                </div>
+                <div class="calculation-breakdown">
+                    <strong>Calculation Breakdown:</strong><br>
+                    Age: ${age} years → ${breakdown.ageDiscount}% discount<br>
+                    Experience: ${experience} years → ${breakdown.experienceDiscount}% discount<br>
+                    <strong>Total Discount: ${breakdown.ageDiscount}% + ${
+          breakdown.experienceDiscount
+        }% = ${discount}%</strong>
+                </div>
+            `;
+
+        resultContainer.className = "result-container show";
+      }
+
+      function showError(message) {
+        resultContent.innerHTML = `<div class="error-message">Error: ${message}</div>`;
+        resultContainer.className = "result-container show error";
+      }
+
+      function hideResult() {
+        resultContainer.className = "result-container";
+      }
+
+      function calculateBreakdown(age, experience) {
+        let ageDiscount = 0;
+        let experienceDiscount = 0;
+
+        if (age >= 25) {
+          ageDiscount += 5;
+          if (age >= 40) {
+            ageDiscount += 5;
+          }
+        }
+
+        if (experience >= 5) {
+          experienceDiscount += 5;
+          if (experience >= 10) {
+            experienceDiscount += 5;
+          }
+        }
+
+        return {
+          ageDiscount,
+          experienceDiscount,
+        };
+      }
+
+      function getAgeDescription(age) {
+        if (age >= 40) return "40+ years (mature driver)";
+        if (age >= 25) return "25-39 years (experienced)";
+        return "Under 25 (young driver)";
+      }
+
+      function getExperienceDescription(experience) {
+        if (experience >= 10) return "10+ years (highly experienced)";
+        if (experience >= 5) return "5-9 years (experienced)";
+        return "Under 5 years (new driver)";
+      }
+
+      function quickFill(age, experience) {
+        ageInput.value = age;
+        experienceInput.value = experience;
+      }
+
+      // Auto-focus on the age input when page loads
+      window.addEventListener("load", () => {
+        ageInput.focus();
+      });
+
+      // Add validation to prevent negative values
+      ageInput.addEventListener("input", () => {
+        if (ageInput.value < 0) ageInput.value = 0;
+      });
+
+      experienceInput.addEventListener("input", () => {
+        if (experienceInput.value < 0) experienceInput.value = 0;
+      });
+    </script>
+  </body>
+</html>

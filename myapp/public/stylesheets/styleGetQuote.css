@@ -6,7 +6,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -117,24 +117,31 @@ label {
   font-size: 1.1em;
 }
 
-textarea {
+input {
   width: 100%;
-  min-height: 120px;
   padding: 15px;
   border: 2px solid #e1e5e9;
   border-radius: 12px;
   font-size: 16px;
   font-family: inherit;
-  resize: vertical;
   transition: all 0.3s ease;
   background: #f8f9fa;
 }
 
-textarea:focus {
+input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #4caf50;
   background: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.input-row {
+  display: flex;
+  gap: 15px;
+}
+
+.input-row .form-group {
+  flex: 1;
 }
 
 .button-container {
@@ -156,13 +163,13 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
   color: white;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
 }
 
 .btn-secondary {
@@ -176,11 +183,23 @@ button {
   transform: translateY(-1px);
 }
 
+.btn-integration {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: white;
+  font-size: 14px;
+  padding: 12px 25px;
+}
+
+.btn-integration:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+}
+
 .result-container {
   margin-top: 25px;
   padding: 20px;
   border-radius: 12px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #4caf50;
   background: #f8f9fa;
   display: none;
 }
@@ -208,33 +227,43 @@ button {
 
 .result-title {
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-size: 1.1em;
 }
 
-.risk-rating {
+.premium-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.premium-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.premium-label {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.premium-value {
   font-size: 2em;
   font-weight: 700;
-  color: #667eea;
-  margin: 10px 0;
+  color: #4caf50;
 }
 
-.risk-rating.high {
-  color: #dc3545;
-}
-
-.risk-rating.medium {
-  color: #ffc107;
-}
-
-.risk-rating.low {
-  color: #28a745;
-}
-
-.keywords-detected {
+.calculation-breakdown {
   margin-top: 15px;
-  padding: 10px;
-  background: rgba(102, 126, 234, 0.1);
+  padding: 15px;
+  background: rgba(76, 175, 80, 0.1);
   border-radius: 8px;
   font-size: 0.9em;
 }
@@ -264,14 +293,14 @@ button {
 .examples {
   margin-top: 20px;
   padding: 15px;
-  background: #e3f2fd;
+  background: #e8f5e8;
   border-radius: 8px;
   font-size: 0.9em;
 }
 
 .examples h4 {
   margin-bottom: 10px;
-  color: #1976d2;
+  color: #2e7d32;
 }
 
 .examples ul {
@@ -281,12 +310,69 @@ button {
 
 .examples li {
   margin-bottom: 8px;
-  padding: 5px 0;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(46, 125, 50, 0.1);
 }
 
-.keyword-highlight {
-  background: #fff3cd;
-  padding: 2px 4px;
-  border-radius: 3px;
+.examples li:last-child {
+  border-bottom: none;
+}
+
+.example-input {
   font-weight: 600;
+}
+
+.example-output {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.integration-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fff3e0;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+
+.integration-section h4 {
+  margin-bottom: 10px;
+  color: #f57c00;
+}
+
+.api-integration {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.quick-fill-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.quick-fill-btn {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #90caf9;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: all 0.2s ease;
+}
+
+.quick-fill-btn:hover {
+  background: #bbdefb;
+  transform: scale(1.05);
 }
