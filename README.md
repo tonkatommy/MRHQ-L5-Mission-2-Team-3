@@ -149,11 +149,15 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Ensure you have these tools installed:
 
 - npm
   ```sh
   npm install npm@latest -g
+  ```
+- nodemon
+  ```sh
+  npm install -g nodemon
   ```
 
 ### Installation & Run
@@ -195,10 +199,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [ ] Schedule daily standups and sprint planning
-- [ ] Set up initial project structure and testing framework
-- [ ] Define API specifications for each module
-- [ ] Assign developers to API modules
+- [x] Schedule daily standups and sprint planning
+- [x] Set up initial project structure and testing framework
+- [x] Define API specifications for each module
+- [x] Assign developers to API modules
 - [ ] Integrate UX feedback into API design
 
 See the [open issues](https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3/issues) for a full list of proposed features (and known issues).
