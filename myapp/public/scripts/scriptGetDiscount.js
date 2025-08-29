@@ -17,7 +17,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (experience === null || experience === undefined || experience < 0 || experience > 60) {
+  if (isNaN(experience) || experience < 0 || experience > 60) {
     showError("Please enter valid driving experience (0-60 years).");
     return;
   }
