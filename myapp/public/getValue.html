@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Car Value API Tester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stylesheets/styleGetValue.css" />
+    <script src="scripts/scriptGetValue.js" defer></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <h2>🚗 Insurance API Suite</h2>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Risk Rating</a>
+          </li>
+          <li class="nav-item">
+            <a href="getValue.html" class="nav-link active">Car Value</a>
+          </li>
+          <li class="nav-item">
+            <a href="getQuote.html" class="nav-link">Premium Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="getDiscount.html" class="nav-link">Discount Calculator</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="container">
+        <h1>🚗 Car Value Calculator</h1>
+        <p class="subtitle">Enter car model and year to calculate estimated value</p>
+
+        <form id="carValueForm">
+          <div class="input-row">
+            <div class="form-group">
+              <label for="model">Car Model:</label>
+              <input
+                type="text"
+                id="model"
+                name="model"
+                placeholder="e.g., Civic, BMW X5, Camry"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="year">Year:</label>
+              <input
+                type="number"
+                id="year"
+                name="year"
+                placeholder="e.g., 2020"
+                min="1900"
+                max="2030"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="btn-primary" id="submitBtn">Calculate Value</button>
+            <button type="button" class="btn-secondary" id="clearBtn">Clear</button>
+          </div>
+        </form>
+
+        <div id="resultContainer" class="result-container">
+          <div class="result-title">Car Value Result:</div>
+          <div id="resultContent"></div>
+        </div>
+
+        <div class="algorithm-info">
+          <h4>💡 How it works:</h4>
+          <p><strong>Formula:</strong> (Sum of letter values × 100) + Year</p>
+          <p><strong>Letter Values:</strong> A=1, B=2, C=3, ..., Z=26</p>
+          <p><strong>Note:</strong> Only letters are counted, numbers and symbols are ignored</p>
+          <div class="letter-values">
+            <div class="letter-value">A=1</div>
+            <div class="letter-value">B=2</div>
+            <div class="letter-value">C=3</div>
+            <div class="letter-value">D=4</div>
+            <div class="letter-value">E=5</div>
+            <div class="letter-value">F=6</div>
+            <div class="letter-value">G=7</div>
+            <div class="letter-value">H=8</div>
+            <div class="letter-value">I=9</div>
+            <div class="letter-value">J=10</div>
+            <div class="letter-value">K=11</div>
+            <div class="letter-value">L=12</div>
+            <div class="letter-value">M=13</div>
+            <div class="letter-value">N=14</div>
+            <div class="letter-value">O=15</div>
+            <div class="letter-value">P=16</div>
+            <div class="letter-value">Q=17</div>
+            <div class="letter-value">R=18</div>
+            <div class="letter-value">S=19</div>
+            <div class="letter-value">T=20</div>
+            <div class="letter-value">U=21</div>
+            <div class="letter-value">V=22</div>
+            <div class="letter-value">W=23</div>
+            <div class="letter-value">X=24</div>
+            <div class="letter-value">Y=25</div>
+            <div class="letter-value">Z=26</div>
+          </div>
+        </div>
+
+        <div class="examples">
+          <h4>📝 Example Calculations:</h4>
+          <ul>
+            <li>
+              <span class="example-input">Civic, 2020</span>
+              <span class="example-output">$6,620</span>
+            </li>
+            <li>
+              <span class="example-input">BMW, 2018</span>
+              <span class="example-output">$4,018</span>
+            </li>
+            <li>
+              <span class="example-input">Task-Force, 2019</span>
+              <span class="example-output">$14,719</span>
+            </li>
+            <li>
+              <span class="example-input">911, 2020</span>
+              <span class="example-output">$2,020</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

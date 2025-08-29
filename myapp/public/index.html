@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Risk Rating API Tester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <script src="scripts/script.js" defer></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <h2>🚗 Insurance API Suite</h2>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link active">Risk Rating</a>
+          </li>
+          <li class="nav-item">
+            <a href="getValue.html" class="nav-link">Car Value</a>
+          </li>
+          <li class="nav-item">
+            <a href="getQuote.html" class="nav-link">Premium Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="getDiscount.html" class="nav-link">Discount Calculator</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="container">
+        <h1>🚗 Risk Rating API</h1>
+        <p class="subtitle">Enter your claim history to get a risk assessment</p>
+
+        <form id="riskForm">
+          <div class="form-group">
+            <label for="claimHistory">Claim History:</label>
+            <textarea
+              id="claimHistory"
+              name="claimHistory"
+              placeholder="Enter your driving claim history for the past 3 years..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="btn-primary" id="submitBtn">Get Risk Rating</button>
+            <button type="button" class="btn-secondary" id="clearBtn">Clear</button>
+          </div>
+        </form>
+
+        <div id="resultContainer" class="result-container">
+          <div class="result-title">Risk Assessment Result:</div>
+          <div id="resultContent"></div>
+        </div>
+
+        <div class="examples">
+          <h4>📝 Example Inputs:</h4>
+          <ul>
+            <li>
+              <strong>Clean Record:</strong> "No claims in the past 3 years. Clean driving record."
+            </li>
+            <li>
+              <strong>Minor Incident:</strong> "Had a small
+              <span class="keyword-highlight">scratch</span> on my car door last year."
+            </li>
+            <li>
+              <strong>Multiple Incidents:</strong> "I had a
+              <span class="keyword-highlight">crash</span> into a garage door that left a
+              <span class="keyword-highlight">scratch</span>. No other
+              <span class="keyword-highlight">crashes</span>."
+            </li>
+          </ul>
+          <p><strong>Keywords detected:</strong> crash, scratch, bump, smash, collide</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
