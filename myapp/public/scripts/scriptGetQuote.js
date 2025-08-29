@@ -72,7 +72,7 @@ async function calculatePremium(carValue, riskRating) {
   setLoading(true);
 
   try {
-    const response = await fetch("/api/calculatePremium", {
+    const response = await fetch("/getQuote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
