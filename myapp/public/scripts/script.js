@@ -30,7 +30,7 @@ async function submitForm(claimHistory) {
   setLoading(true);
 
   try {
-    const response = await fetch("/api/getRiskRating", {
+    const response = await fetch("/api/v1/getRiskRating", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

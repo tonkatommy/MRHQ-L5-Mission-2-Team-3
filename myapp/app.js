@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var getDiscountRouter = require("./routes/getDiscount");
+var indexRouter = require("./routes/index");
 var getDiscountRouter = require("./routes/getDiscount");
 var getQuoteRouter = require("./routes/getQuote");
 const getRiskRatingRouter = require("./routes/getRiskRating");
@@ -22,11 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", getDiscountRouter);
-app.use("/getDiscount", getDiscountRouter);
-app.use("/getQuote", getQuoteRouter);
-app.use("/api/getRiskRating", getRiskRatingRouter);
-app.use("/getValue", carValueRouter);
+app.use("/", indexRouter);
+app.use("/api/v1/getDiscount", getDiscountRouter);
+app.use("/api/v1/getQuote", getQuoteRouter);
+app.use("/api/v1/getRiskRating", getRiskRatingRouter);
+app.use("/api/v1/getValue", carValueRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

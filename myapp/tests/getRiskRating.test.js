@@ -3,9 +3,9 @@ const app = require("../app");
 
 // Test suite for GET /api/getRiskRating
 // GET test response from /api/getRiskRating
-describe("GET /api/getRiskRating", () => {
+describe("GET /api/v1/getRiskRating", () => {
   it("1: should return a risk rating", async () => {
-    const response = await request(app).get("/api/getRiskRating");
+    const response = await request(app).get("/api/v1/getRiskRating");
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("riskRating");
   });
@@ -19,7 +19,7 @@ describe("POST /api/getRiskRating", () => {
    * containing multiple keywords ("crash", "scratch", "crashes")
    */
   it("1: should return a risk rating for multiple keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory:
         "My only claim was a crash into my house's garage door that left a scratch on my car. There are no other crashes.",
     });
@@ -33,7 +33,7 @@ describe("POST /api/getRiskRating", () => {
    * - Confirms API returns minimum rating (1) when no risk keywords are present
    */
   it("2: should return a risk rating of 1 for no keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "No claims in the past 3 years. Clean driving record.",
     });
     expect(response.status).toBe(200);
@@ -47,7 +47,7 @@ describe("POST /api/getRiskRating", () => {
    *   counted separately (3 "crash" + base 1 = 4)
    */
   it("3: should return a risk rating of 4 for multiple crashes", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory:
         "I had a crash last year, another crash this year, and a third crash last week.",
     });
@@ -62,7 +62,7 @@ describe("POST /api/getRiskRating", () => {
    *   ("bump", "dent", "scratch") in a single sentence
    */
   it("4: should return a risk rating of 4 for multiple different keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "Minor bump in parking lot caused a small smash and scratch on bumper.",
     });
     expect(response.status).toBe(200);
@@ -75,7 +75,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests counting of varied keywords ("collide", "smash") in complex sentence structure
    */
   it("5: should return a risk rating of 3 for mixed keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory:
         "Severe accident where I collide with another car, causing it to smash into a tree.",
     });
@@ -89,7 +89,7 @@ describe("POST /api/getRiskRating", () => {
    * - Verifies that keywords are detected regardless of case (uppercase)
    */
   it("6: should detect uppercase keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "CRASH, SCRATCH, BUMP - all uppercase incidents.",
     });
     expect(response.status).toBe(200);
@@ -102,7 +102,7 @@ describe("POST /api/getRiskRating", () => {
    * - Verifies that keywords are detected regardless of case (lowercase)
    */
   it("7: should detect lowercase keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "crash, scratch, bump - all lowercase incidents.",
     });
     expect(response.status).toBe(200);
@@ -115,7 +115,7 @@ describe("POST /api/getRiskRating", () => {
    * - Verifies that keywords are detected regardless of case (mixed case)
    */
   it("8: should detect mixed case keywords", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "CrAsH, ScRaTcH, bUmP - mixed case incidents.",
     });
     expect(response.status).toBe(200);
@@ -128,7 +128,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests that the same keyword is counted each time it appears, even within one sentence
    */
   it("9: should count repeated keywords in same sentence", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "I had a crash into another car that had a crash at the crash site.",
     });
     expect(response.status).toBe(200);
@@ -141,7 +141,7 @@ describe("POST /api/getRiskRating", () => {
    * - Validates that risk rating caps at maximum value (5) even when more than 5 keywords are present
    */
   it("10: should cap risk rating at maximum value of 5", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "collide collide collide collide collide collide",
     });
     expect(response.status).toBe(200);
@@ -154,7 +154,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests minimal input with exactly one keyword (base 1 + 1 keyword = 2)
    */
   it("11: should return risk rating of 2 for single keyword", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "scratch",
     });
     expect(response.status).toBe(200);
@@ -167,7 +167,7 @@ describe("POST /api/getRiskRating", () => {
    * - Verifies handling of empty string input returns minimum risk rating
    */
   it("12: should return risk rating of 1 for empty string", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "",
     });
     expect(response.status).toBe(200);
@@ -180,7 +180,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests that whitespace-only input is treated as having no keywords
    */
   it("13: should return risk rating of 1 for whitespace only", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "   ",
     });
     expect(response.status).toBe(200);
@@ -193,7 +193,7 @@ describe("POST /api/getRiskRating", () => {
    * - Validates that keywords are counted regardless of context (even non-driving related usage)
    */
   it("14: should count keywords regardless of context", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "I love to crash parties and scratch lottery tickets while bump into friends.",
     });
     expect(response.status).toBe(200);
@@ -206,7 +206,7 @@ describe("POST /api/getRiskRating", () => {
    * - Ensures only exact keyword matches are counted, not similar words or word variations
    */
   it("15: should not count similar words that are not exact matches", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: "crasher, scratches, bumping, smashing, collides",
     });
     expect(response.status).toBe(200);
@@ -219,7 +219,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests error handling when required "claimHistory" field is completely missing
    */
   it("16: should return error when claimHistory field is missing", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({});
+    const response = await request(app).post("/api/v1/getRiskRating").send({});
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("error");
     expect(response.body.error).toEqual("there is an error");
@@ -230,7 +230,7 @@ describe("POST /api/getRiskRating", () => {
    * - Validates proper error response when claimHistory field is null
    */
   it("17: should return error when claimHistory is null", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: null,
     });
     expect(response.status).toBe(400);
@@ -243,7 +243,7 @@ describe("POST /api/getRiskRating", () => {
    * - Tests error handling for incorrect data type (number when string expected)
    */
   it("18: should return error for number data type", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       claimHistory: 12345,
     });
     expect(response.status).toBe(400);
@@ -257,7 +257,7 @@ describe("POST /api/getRiskRating", () => {
    */
   it("19: should return error for array data type", async () => {
     const response = await request(app)
-      .post("/api/getRiskRating")
+      .post("/api/v1/getRiskRating")
       .send({
         claimHistory: ["crash", "scratch"],
       });
@@ -271,7 +271,7 @@ describe("POST /api/getRiskRating", () => {
    * - Validates error response when correct field name is not used
    */
   it("20: should return error for wrong field name", async () => {
-    const response = await request(app).post("/api/getRiskRating").send({
+    const response = await request(app).post("/api/v1/getRiskRating").send({
       wrongField: "I had a crash",
     });
     expect(response.status).toBe(400);
