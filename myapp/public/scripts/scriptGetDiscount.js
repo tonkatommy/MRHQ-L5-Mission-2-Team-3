@@ -36,7 +36,7 @@ async function calculateDiscount(age, experience) {
   setLoading(true);
 
   try {
-    const response = await fetch("/getDiscount", {
+    const response = await fetch("/api/v1/getDiscount", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

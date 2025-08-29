@@ -121,7 +121,6 @@ Each developer will own the full lifecycle of their assigned API:
 
 **Frontend:**
 
-- ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 - [![React][React.js]][React-url]
 
 **Backend:**
@@ -131,12 +130,7 @@ Each developer will own the full lifecycle of their assigned API:
 - ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
   <!-- - [![Next][Next.js]][Next-url] -->
   <!-- - [![Bootstrap][Bootstrap.com]][Bootstrap-url] -->
-- [![MySQL][MySQL.com]][MySQL-url]
 - ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
-
-**Cloud Services:**
-
-- ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -144,8 +138,8 @@ Each developer will own the full lifecycle of their assigned API:
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Let's get you up and running! We assume you have Node.js installed and a development
+environment setup. Head over to your favourite terminal!
 
 ### Prerequisites
 
@@ -162,25 +156,23 @@ Ensure you have these tools installed:
 
 ### Installation & Run
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3.git
    ```
-3. Change directory, install NPM packages, and run
+2. Change directory & install NPM packages
    ```sh
    cd ./MRHQ-L5-Mission-2-Team-3
    npm install
-   npm run dev
    ```
-4. Enter your API in `.env`
-   ```js
-   API_KEY = "ENTER YOUR API";
-   ```
-5. Change git remote url to avoid accidental pushes to base project
+3. Run the app
    ```sh
-   git remote set-url origin tonkatommy/MRHQ-L5-Mission-2-Team-3
-   git remote -v # confirm the changes
+   npm run dev
+   npm start
+   ```
+4. Run unit tests
+   ```sh
+   npm test
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -189,9 +181,24 @@ Ensure you have these tools installed:
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Screenshots:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<div align="left">
+  <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3">
+    <img src="readme-images/screenshot-risk-rating.png" alt="Logo" width="700">
+  </a>
+  <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3">
+    <img src="readme-images/screentshot-value.png" alt="Logo" width="700">
+  </a>
+  <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3">
+    <img src="readme-images/screentshot-quote.png" alt="Logo" width="700">
+  </a>
+  <a href="https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3">
+    <img src="readme-images/screenshot-discount.png" alt="Logo" width="700">
+  </a>
+</div>
+
+_For more examples, please refer to the [Documentation](https://github.com/tonkatommy/MRHQ-L5-Mission-2-Team-3)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -36,7 +36,7 @@ async function submitForm(model, year) {
   setLoading(true);
 
   try {
-    const response = await fetch("/getValue", {
+    const response = await fetch("/api/v1/getValue", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
