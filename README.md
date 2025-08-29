@@ -139,7 +139,7 @@ Each developer will own the full lifecycle of their assigned API:
 ## Getting Started
 
 Let's get you up and running! We assume you have Node.js installed and a development
-enviroment setup. Head over to your favourite terminal!
+environment setup. Head over to your favourite terminal!
 
 ### Prerequisites
 
