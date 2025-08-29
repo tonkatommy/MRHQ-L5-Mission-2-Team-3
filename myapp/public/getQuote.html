@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Calculator API Tester</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stylesheets/styleGetQuote.css" />
+    <script src="scripts/scriptGetQuote.js" defer></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <h2>🚗 Insurance API Suite</h2>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Risk Rating</a>
+          </li>
+          <li class="nav-item">
+            <a href="getValue.html" class="nav-link">Car Value</a>
+          </li>
+          <li class="nav-item">
+            <a href="getQuote.html" class="nav-link active">Premium Calculator</a>
+          </li>
+          <li class="nav-item">
+            <a href="getDiscount.html" class="nav-link">Discount Calculator</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="container">
+        <h1>💰 Premium Calculator</h1>
+        <p class="subtitle">Calculate insurance premiums based on car value and risk rating</p>
+
+        <form id="premiumForm">
+          <div class="input-row">
+            <div class="form-group">
+              <label for="carValue">Car Value ($):</label>
+              <input
+                type="number"
+                id="carValue"
+                name="carValue"
+                placeholder="e.g., 25000"
+                min="1"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="riskRating">Risk Rating (1-5):</label>
+              <input
+                type="number"
+                id="riskRating"
+                name="riskRating"
+                placeholder="e.g., 3"
+                min="1"
+                max="5"
+                step="0.1"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button type="submit" class="btn-primary" id="submitBtn">Calculate Premium</button>
+            <button type="button" class="btn-secondary" id="clearBtn">Clear</button>
+          </div>
+
+          <div class="api-integration">
+            <button type="button" class="btn-integration" id="integrateBtn">
+              🔗 Get Values from Other APIs
+            </button>
+            <small>Fill car value and risk rating automatically</small>
+          </div>
+        </form>
+
+        <div class="quick-fill-buttons">
+          <button class="quick-fill-btn" onclick="quickFill(15000, 2)">Low Risk Example</button>
+          <button class="quick-fill-btn" onclick="quickFill(30000, 3.5)">
+            Medium Risk Example
+          </button>
+          <button class="quick-fill-btn" onclick="quickFill(50000, 5)">High Risk Example</button>
+        </div>
+
+        <div id="resultContainer" class="result-container">
+          <div class="result-title">Premium Calculation Result:</div>
+          <div id="resultContent"></div>
+        </div>
+
+        <div class="integration-section">
+          <h4>🔗 API Integration</h4>
+          <p><strong>Formula:</strong> Premium = (Car Value × Risk Rating) ÷ 100</p>
+          <p>
+            <strong>Input:</strong> Car value from Car Value API, Risk rating from Risk Rating API
+          </p>
+          <p><strong>Output:</strong> Monthly and yearly premium amounts</p>
+        </div>
+
+        <div class="examples">
+          <h4>📝 Example Calculations:</h4>
+          <ul>
+            <li>
+              <span class="example-input">$25,000 car, Risk 2</span>
+              <span class="example-output">$41.7/month, $500/year</span>
+            </li>
+            <li>
+              <span class="example-input">$30,000 car, Risk 3</span>
+              <span class="example-output">$75/month, $900/year</span>
+            </li>
+            <li>
+              <span class="example-input">$50,000 car, Risk 4</span>
+              <span class="example-output">$166.7/month, $2000/year</span>
+            </li>
+            <li>
+              <span class="example-input">$40,000 car, Risk 5</span>
+              <span class="example-output">$166.7/month, $2000/year</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
