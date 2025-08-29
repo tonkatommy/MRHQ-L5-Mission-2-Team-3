@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
+var getDiscountRouter = require("./routes/getDiscount");
 var getDiscountRouter = require("./routes/getDiscount");
 var getQuoteRouter = require("./routes/getQuote");
 const getRiskRatingRouter = require("./routes/getRiskRating");
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/", getDiscountRouter);
 app.use("/getDiscount", getDiscountRouter);
 app.use("/getQuote", getQuoteRouter);
 app.use("/api/getRiskRating", getRiskRatingRouter);
